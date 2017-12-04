@@ -13,15 +13,18 @@ export default Ember.Controller.extend(ModalFunctionality, {
   isWarning: false,
   topicActionByName: null,
   spammerDetails: null,
+  showModerationHistory: null,
 
   onShow() {
     this.setProperties({
       selected: null,
-      spammerDetails: null
+      spammerDetails: null,
+      showModerationHistory: null
     });
 
     let adminTools = this.get('adminTools');
     if (adminTools) {
+      this.set('showModerationHistory', true);
       adminTools.checkSpammer(this.get('model.user_id')).then(result => {
         this.set('spammerDetails', result);
       });
@@ -113,6 +116,14 @@ export default Ember.Controller.extend(ModalFunctionality, {
       if (details) {
         details.deleteUser().then(() => window.location.reload());
       }
+    },
+
+    showModerationHistory() {
+      let target = {
+        filter: this.get('flagTopic') ? 'topic' : 'post'
+      };
+      target[`${target.filter}_id`] = this.get('model.id');
+      this.get('adminTools').showModerationHistory(target);
     },
 
     takeAction() {

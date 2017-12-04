@@ -49,4 +49,11 @@
       label="flagging.delete_spammer"}}
   {{/if}}
 
+  {{#if showModerationHistory}}
+    {{d-button
+      icon="list"
+      action=(action "showModerationHistory")
+      label="admin.flags.moderation_history"}}
+  {{/if}}
+
 </div>

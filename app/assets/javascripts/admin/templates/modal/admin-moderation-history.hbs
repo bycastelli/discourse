@@ -1,0 +1,7 @@
+{{#d-modal-body title="admin.flags.moderation_history"}}
+  {{#conditional-loading-spinner condition=loading}}
+    {{#each history as |h|}}
+      {{log h}}
+    {{/each}}
+  {{/conditional-loading-spinner}}
+{{/d-modal-body}}
